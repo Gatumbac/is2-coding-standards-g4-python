@@ -1,0 +1,43 @@
+name: Lint Changed Files
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip upgrade pip
+          pip install flake8
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **/*.py
+
+      - name: Run linter on changed files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Linting the following files:"
+          echo "${{ steps.changed-files.outputs.all_changed_files }}"
+          
+          # Run flake8. By default, any violation returns a non-zero exit code,
+          # which automatically fails the GitHub Actions step/build.
+          flake8 ${{ steps.changed-files.outputs.all_changed_files }}

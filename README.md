@@ -22,7 +22,7 @@ pytest
 python -m loan.cli --income 1200 --debt 320 --tenure-months 18 --age 34 --savings-balance 850
 ```
 
-## Linting tool selected
+## Tool for linting selected
 
 Pylint Version
 2026.5.11331020

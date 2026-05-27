@@ -172,7 +172,7 @@ def evaluate(income,
         if amount == -1:
             reasons = reasons + "AMOUNT_BELOW_MIN;"
 
-    # Concatenate the parts back into a single human-readable string 
+    # Concatenate the parts back into a single human-readable string
     # using a space separator.
     msg = ""
     for i in range(len(reasons.split(";"))):
